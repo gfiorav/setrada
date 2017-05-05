@@ -1,6 +1,6 @@
 class CreateDictionaries < ActiveRecord::Migration[5.1]
   def change
-    create_table :dictionaries, id: :uuid do |t|
+    create_table(:dictionaries, id: :uuid) do |t|
       t.string(:locator)
       t.belongs_to(:reader, type: :uuid)
 
