@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505094630) do
+ActiveRecord::Schema.define(version: 20170505100707) do
+
+# Could not dump table "dictionaries" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
 
 # Could not dump table "readers" because of following StandardError
 #   Unknown type 'uuid' for column 'id'
