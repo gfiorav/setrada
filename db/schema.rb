@@ -10,12 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505100707) do
+ActiveRecord::Schema.define(version: 20170505102440) do
 
-# Could not dump table "dictionaries" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
-# Could not dump table "readers" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "dictionaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "locator"
+    t.uuid "reader_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reader_id"], name: "index_dictionaries_on_reader_id"
+  end
+
+  create_table "readers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "username", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.jsonb "map", null: false
+    t.uuid "dictionary_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dictionary_id"], name: "index_translations_on_dictionary_id"
+  end
 
 end
