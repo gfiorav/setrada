@@ -1,10 +1,6 @@
 class DictionariesController < ApplicationController
   before_filter :load_dictionary, only: [:show, :destroy]
 
-  rescue_from ActiveRecord::RecordInvalid do |exception|
-    render json: exception, status: :unprocessable_entity
-  end
-
   def index
     render json: current_reader.dictionaries
   end
