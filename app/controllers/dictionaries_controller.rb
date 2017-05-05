@@ -1,5 +1,5 @@
 class DictionariesController < ApplicationController
-  before_filter :load_dictionary, only: [:show, :destroy]
+  before_action :load_dictionary, only: [:show, :destroy]
 
   def index
     render json: current_reader.dictionaries

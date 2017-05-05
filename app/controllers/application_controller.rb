@@ -15,7 +15,7 @@ class ApplicationController < ActionController::API
     @dictionary = Dictionary.find(id)
   end
 
-  def load_translation(id: params[:id])
-    @translation = Translation.find(id)
+  def load_translation(id: params[:id], dictionary: @dictionary)
+    @translation = dictionary.translations.find(id)
   end
 end
