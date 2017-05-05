@@ -22,12 +22,4 @@ class DictionariesController < ApplicationController
     @dictionary.destroy
     head :no_content
   end
-
-  private
-
-  def load_dictionary
-    @dictionary = Dictionary.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => _exception
-    head :not_found
-  end
 end
