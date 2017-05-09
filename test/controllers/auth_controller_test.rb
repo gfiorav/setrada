@@ -36,7 +36,7 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     assert_equal JSON.parse(@response.body)['auth_token'], @user.reload.token
   end
 
-  test 'regenerates tokens on every login' do
+  test 'regenerates tokens after DEFAULT_TOKEN_LIFESPAN_IN_SECONDS seconds' do
     post '/login', params: { username: @user.username, password: @password }
 
     assert_response :success
@@ -49,6 +49,16 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     second_token = @user.reload.token
     assert_equal JSON.parse(@response.body)['auth_token'], second_token
 
-    assert_not_equal first_token, second_token
+    assert_equal first_token, second_token
+
+    Timecop.travel(Time.now + User::DEFAULT_TOKEN_LIFESPAN_IN_SECONDS)
+
+    post '/login', params: { username: @user.username, password: @password }
+
+    assert_response :success
+    third_token = @user.reload.token
+    assert_equal JSON.parse(@response.body)['auth_token'], third_token
+
+    assert_not_equal second_token, third_token
   end
 end
