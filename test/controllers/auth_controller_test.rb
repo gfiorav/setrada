@@ -36,12 +36,17 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     assert_equal JSON.parse(@response.body)['auth_token'], @user.reload.token
   end
 
-  test 'regenerates tokens after DEFAULT_TOKEN_LIFESPAN_IN_SECONDS seconds' do
+  test 'token stays the same within DEFAULT_TOKEN_LIFESPAN_IN_SECONDS' do
+    start_time = Time.now
+    Timecop.freeze(start_time)
+
     post '/login', params: { username: @user.username, password: @password }
 
     assert_response :success
     first_token = @user.reload.token
     assert_equal JSON.parse(@response.body)['auth_token'], first_token
+
+    Timecop.freeze(start_time + 1)
 
     post '/login', params: { username: @user.username, password: @password }
 
@@ -50,15 +55,26 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     assert_equal JSON.parse(@response.body)['auth_token'], second_token
 
     assert_equal first_token, second_token
+  end
 
-    Timecop.travel(Time.now + User::DEFAULT_TOKEN_LIFESPAN_IN_SECONDS)
+  test 'regenerates tokens after DEFAULT_TOKEN_LIFESPAN_IN_SECONDS seconds' do
+    start_time = Time.now
+    Timecop.freeze(start_time)
 
     post '/login', params: { username: @user.username, password: @password }
 
     assert_response :success
-    third_token = @user.reload.token
-    assert_equal JSON.parse(@response.body)['auth_token'], third_token
+    first_token = @user.reload.token
+    assert_equal JSON.parse(@response.body)['auth_token'], first_token
 
-    assert_not_equal second_token, third_token
+    Timecop.freeze(start_time + User::DEFAULT_TOKEN_LIFESPAN_IN_SECONDS)
+
+    post '/login', params: { username: @user.username, password: @password }
+
+    assert_response :success
+    second_token = @user.reload.token
+    assert_equal JSON.parse(@response.body)['auth_token'], second_token
+
+    assert_not_equal first_token, second_token
   end
 end
