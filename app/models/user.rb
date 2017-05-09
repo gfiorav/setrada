@@ -9,9 +9,15 @@ class User < ApplicationRecord
 
   DEFAULT_TOKEN_LIFESPAN_IN_SECONDS = 86_400
 
+  def token
+    regenerate_token if token.blank? || token_expired?
+
+    super
+  end
+
   private
 
   def token_expired?
-    token.blank? || (Time.now - updated_at) >= DEFAULT_TOKEN_LIFESPAN_IN_SECONDS
+    (Time.now - updated_at) >= DEFAULT_TOKEN_LIFESPAN_IN_SECONDS
   end
 end
