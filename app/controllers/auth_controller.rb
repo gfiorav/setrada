@@ -3,8 +3,8 @@ class AuthController < ApplicationController
 
   def create
     user = User.find_by_username!(params[:username])
+
     if user.authenticate(params[:password])
-      user.regenerate_token
       render json: { auth_token: user.token }
     else
       render json: { error: 'invalid user credentials' },
