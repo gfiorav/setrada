@@ -1,14 +1,16 @@
 class ApplicationController < ActionController::API
+  before_action :current_reader
+
   rescue_from ActiveRecord::RecordInvalid do |exception|
-    render json: exception, status: :unprocessable_entity
+    throw_json_exception(exception, status: :unprocessable_entity)
   end
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    render json: "#{exception.record.class} not found", status: :not_found
+    throw_json_exception(exception, status: :not_found)
   end
 
   def current_reader
-    Reader.first || Reader.create(username: 'manolo')
+    Reader.find_by_token!(request.headers['Authorization'])
   end
 
   def load_dictionary(id: params[:id])
@@ -17,5 +19,11 @@ class ApplicationController < ActionController::API
 
   def load_translation(id: params[:id], dictionary: @dictionary)
     @translation = dictionary.translations.find(id)
+  end
+
+  private
+
+  def throw_json_exception(exception, status: :ok)
+    render json: { error: exception.message }, status: status
   end
 end

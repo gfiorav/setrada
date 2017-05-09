@@ -3,7 +3,7 @@ class TranslationsController < ApplicationController
   before_action :load_translation, only: [:show, :update, :destroy]
 
   def index
-    render json: dictionary.translations
+    render json: @dictionary.translations
   end
 
   def show
@@ -11,7 +11,7 @@ class TranslationsController < ApplicationController
   end
 
   def create
-    Translation.create(dictionary: @dictionary, map: params[:map])
+    Translation.create!(dictionary: @dictionary, map: params[:map])
     head :no_content
   end
 

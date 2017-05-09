@@ -10,7 +10,7 @@ class DictionariesController < ApplicationController
   end
 
   def create
-    Dictionary.create(locator: params[:locator], reader: current_reader)
+    Dictionary.create!(locator: params[:locator], reader: current_reader)
     head :no_content
   end
 
