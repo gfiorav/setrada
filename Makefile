@@ -9,10 +9,10 @@ setup:
 	bundle exec rails db:migrate
 
 test-setup:
+	bundle install
 	make test-crazynuke
 	RAILS_ENV=test bundle exec rails db:create
 	RAILS_ENV=test bundle exec rails db:migrate
-	bundle install
 
 test-crazynuke:
 	RAILS_ENV=test bundle exec rails db:drop
