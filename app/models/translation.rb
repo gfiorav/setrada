@@ -1,5 +1,5 @@
 class Translation < ApplicationRecord
   belongs_to(:dictionary)
 
-  validates :map, presence: true
+  validates :map, :locator, presence: true
 end
