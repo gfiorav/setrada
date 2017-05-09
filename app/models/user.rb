@@ -7,15 +7,15 @@ class User < ApplicationRecord
   validates :username, uniqueness: { case_sensitive: false }
   validates :username, null: false
 
-  DEFAULT_TOKEN_LIFESPAN_IN_SECONDS = 86_400
-
   def token
-    regenerate_token if token.blank? || token_expired?
+    regenerate_token if super.blank? || token_expired?
 
     super
   end
 
   private
+
+  DEFAULT_TOKEN_LIFESPAN_IN_SECONDS = 86_400
 
   def token_expired?
     (Time.now - updated_at) >= DEFAULT_TOKEN_LIFESPAN_IN_SECONDS
