@@ -1,13 +1,13 @@
 class AuthController < ApplicationController
-  skip_before_action :current_reader, only: :create
+  skip_before_action :current_user, only: :create
 
   def create
-    reader = Reader.find_by_username!(params[:username])
-    if reader.authenticate(params[:password])
-      reader.regenerate_token
-      render json: { auth_token: reader.token }
+    user = User.find_by_username!(params[:username])
+    if user.authenticate(params[:password])
+      user.regenerate_token
+      render json: { auth_token: user.token }
     else
-      render json: { errors: 'invalid reader credentials' },
+      render json: { error: 'invalid user credentials' },
              status: :unauthorized
     end
   end

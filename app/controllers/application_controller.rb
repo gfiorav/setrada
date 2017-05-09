@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :current_reader
+  before_action :current_user
 
   rescue_from ActiveRecord::RecordInvalid do |exception|
     throw_json_exception(exception, status: :unprocessable_entity)
@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
     throw_json_exception(exception, status: :not_found)
   end
 
-  def current_reader
+  def current_user
     Reader.find_by_token!(request.headers['Authorization'])
   end
 

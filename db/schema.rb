@@ -18,18 +18,10 @@ ActiveRecord::Schema.define(version: 20170505102440) do
 
   create_table "dictionaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "locator"
-    t.uuid "reader_id"
+    t.uuid "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reader_id"], name: "index_dictionaries_on_reader_id"
-  end
-
-  create_table "readers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
-    t.string "token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_dictionaries_on_user_id"
   end
 
   create_table "translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -38,6 +30,14 @@ ActiveRecord::Schema.define(version: 20170505102440) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dictionary_id"], name: "index_translations_on_dictionary_id"
+  end
+
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
