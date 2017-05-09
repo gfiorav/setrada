@@ -12,6 +12,6 @@ class User < ApplicationRecord
   private
 
   def token_expired?
-    (Time.now - updated_at) >= DEFAULT_TOKEN_LIFESPAN_IN_SECONDS
+    token.blank? || (Time.now - updated_at) >= DEFAULT_TOKEN_LIFESPAN_IN_SECONDS
   end
 end
