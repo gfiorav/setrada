@@ -14,6 +14,8 @@ class ApplicationController < ActionController::API
     head :unauthorized unless token
 
     User.find_by_token!(token)
+  rescue ActiveRecord::RecordNotFound => _e
+    head :unauthorized
   end
 
   def owners_only
