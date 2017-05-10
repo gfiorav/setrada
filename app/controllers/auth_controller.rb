@@ -1,5 +1,6 @@
 class AuthController < ApplicationController
-  skip_before_action :current_user, only: :create
+  skip_before_action :current_user,
+                     :load_user, only: :create
 
   def create
     user = User.find_by_username!(params[:username])
