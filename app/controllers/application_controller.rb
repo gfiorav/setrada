@@ -24,7 +24,7 @@ class ApplicationController < ActionController::API
   def load_dictionary(locator: params[:id], user: @user)
     @dictionary = user.dictionaries.find_by_locator!(locator)
 
-    head :unauthorized unless @dictionary.viewable_by?(user)
+    head :unauthorized unless @dictionary.viewable_by?(current_user)
   end
 
   def load_translation(id: params[:id], dictionary: @dictionary)
