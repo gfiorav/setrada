@@ -1,4 +1,7 @@
 class Dictionary < ApplicationRecord
+  include Elasticsearch::Model,
+          Elasticsearch::Model::Callbacks
+
   belongs_to(:user)
   has_many(:translations)
 
