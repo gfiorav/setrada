@@ -1,3 +1,21 @@
+GIT
+  remote: https://github.com/elastic/elasticsearch-rails.git
+  revision: 6ed0fc06d8e3622042c0d6356fb74c7b4ff72a3d
+  branch: v5.0.1
+  specs:
+    elasticsearch-model (5.0.1)
+      activesupport (> 3)
+      elasticsearch (~> 5)
+      hashie
+    elasticsearch-persistence (5.0.1)
+      activemodel (> 4)
+      activesupport (> 4)
+      elasticsearch (~> 5)
+      elasticsearch-model (~> 5)
+      hashie
+      virtus
+    elasticsearch-rails (5.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,15 +57,36 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (8.0.0)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
     builder (3.2.3)
     byebug (9.0.6)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.5)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    elasticsearch (5.0.4)
+      elasticsearch-api (= 5.0.4)
+      elasticsearch-transport (= 5.0.4)
+    elasticsearch-api (5.0.4)
+      multi_json
+    elasticsearch-transport (5.0.4)
+      faraday
+      multi_json
+    equalizer (0.0.11)
     erubi (1.6.0)
+    faraday (0.12.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    hashie (3.5.5)
     i18n (0.8.1)
+    ice_nine (0.11.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -62,6 +101,8 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    multi_json (1.12.1)
+    multipart-post (2.0.0)
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -115,6 +156,11 @@ GEM
     timecop (0.8.1)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -125,6 +171,9 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
+  elasticsearch-model!
+  elasticsearch-persistence!
+  elasticsearch-rails!
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.20.0)
   puma (~> 3.7)

@@ -6,8 +6,14 @@ git_source(:github) do |repo_name|
 end
 
 gem 'bcrypt', '~> 3.1.7'
+gem 'elasticsearch-model',
+    git: 'https://github.com/elastic/elasticsearch-rails.git',
+    branch: 'v5.0.1'
 gem 'elasticsearch-persistence',
-    git: 'git://github.com/elastic/elasticsearch-rails.git',
+    git: 'https://github.com/elastic/elasticsearch-rails.git',
+    branch: 'v5.0.1'
+gem 'elasticsearch-rails',
+    git: 'https://github.com/elastic/elasticsearch-rails.git',
     branch: 'v5.0.1'
 gem 'pg', '~> 0.20.0'
 gem 'puma', '~> 3.7'
