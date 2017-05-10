@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
     head :unauthorized unless current_user.id == @user.id
   end
 
-  def load_user(username: params[:id])
+  def load_user(username: params[:username])
     @user = User.find_by_username!(username)
   end
 
