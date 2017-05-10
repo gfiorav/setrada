@@ -1,6 +1,7 @@
 class TranslationsController < ApplicationController
-  before_action { load_dictionary id: params[:dictionary_id] }
+  before_action { load_dictionary locator: params[:dictionary_id] }
   before_action :load_translation, only: [:show, :update, :destroy]
+  before_action :owners_only, only: [:update, :create, :destroy]
 
   def index
     render json: @dictionary.translations
