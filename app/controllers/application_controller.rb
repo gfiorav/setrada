@@ -10,7 +10,10 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    User.find_by_token!(request.headers['Authorization'])
+    token = request.headers['Authorization']
+    head :unauthorized unless token
+
+    User.find_by_token!(token)
   end
 
   def owners_only
