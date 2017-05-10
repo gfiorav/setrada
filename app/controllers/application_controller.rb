@@ -10,10 +10,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    token = request.headers['Authorization']
-    head :unauthorized unless token
-
-    User.find_by_token!(token)
+    User.find_by_token!(request.headers['Authorization'])
   rescue ActiveRecord::RecordNotFound => _e
     head :unauthorized
   end
