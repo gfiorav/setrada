@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    Reader.find_by_token!(request.headers['Authorization'])
+    User.find_by_token!(request.headers['Authorization'])
   end
 
   def load_dictionary(id: params[:id])
