@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170505102440) do
 
   create_table "dictionaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "locator", null: false
+    t.integer "privacy", default: 0, null: false
     t.uuid "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
