@@ -16,7 +16,7 @@ class ActiveSupport::TestCase
     User.create!(username: username, password: password)
   end
 
-  def create_dictionary(user: create_user, locator: random_string)
-    Dictionary.create!(user: user, locator: locator)
+  def create_dictionary(user: create_user, locator: random_string, privacy: 0)
+    Dictionary.create!(user: user, locator: locator, privacy: privacy)
   end
 end
