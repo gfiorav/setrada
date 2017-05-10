@@ -5,7 +5,9 @@ class Dictionary < ApplicationRecord
   belongs_to :user
   has_many :translations
 
-  PRIVACY_DICTIONARY = { 0 => 'public', 1 => 'private' }.freeze
+  PUBLIC = 0
+  PRIVATE = 1
+  PRIVACY_DICTIONARY = { PUBLIC => 'public', PRIVATE => 'private' }.freeze
 
   validates :locator, :privacy, null: false
   validates :locator, uniqueness: { scope: :user_id }
