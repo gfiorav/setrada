@@ -35,4 +35,23 @@ class DictionaryTest < ActiveSupport::TestCase
     one_user.destroy
     another_user.destroy
   end
+
+  test 'valid privacies are accpeted' do
+    Dictionary::PRIVACY_DICTIONARY.keys.each do |privacy|
+      dictionary = create_dictionary(privacy: privacy)
+      dictionary.destroy
+    end
+  end
+
+  test 'invalid privacies are rejected' do
+    assert_raises(ActiveRecord::RecordInvalid) do
+      create_dictionary(privacy: -1)
+    end
+  end
+
+  test 'null privacy not allowed' do
+    assert_raises(ActiveRecord::RecordInvalid) do
+      create_dictionary(privacy: nil)
+    end
+  end
 end
