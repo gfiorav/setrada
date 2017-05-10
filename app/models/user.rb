@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_secure_token
 
-  has_many(:dictionaries)
+  has_many :dictionaries
 
   validates :username, uniqueness: { case_sensitive: false }
   validates :username, null: false
