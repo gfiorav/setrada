@@ -13,6 +13,10 @@ class ApplicationController < ActionController::API
     User.find_by_token!(request.headers['Authorization'])
   end
 
+  def owners_only
+    head :unauthorized unless current_user.id == @user.id
+  end
+
   def load_user(username: params[:id])
     @user = User.find_by_username!(username)
   end
