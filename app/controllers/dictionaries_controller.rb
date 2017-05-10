@@ -1,9 +1,6 @@
 class DictionariesController < ApplicationController
   before_action :load_dictionary, only: [:show, :destroy]
-
-  def index
-    render json: current_user.dictionaries
-  end
+  before_action :owners_only, only: [:create, :destroy]
 
   def show
     render json: @dictionary
