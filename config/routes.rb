@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  match 'login', to: 'auth#create', via: :post
+  match 'login', to: 'auth#update', via: :post
 
   scope 'api' do
     scope 'v1' do

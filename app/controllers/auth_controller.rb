@@ -2,7 +2,7 @@ class AuthController < ApplicationController
   skip_before_action :current_user,
                      :load_user, only: :create
 
-  def create
+  def update
     user = User.find_by_username!(params[:username])
 
     if user.authenticate(params[:password])
